@@ -1,0 +1,15 @@
+.header{
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem 1rem ;
+    
+    .header-options {
+        display: flex;
+        
+        .header-option{
+            padding: 0.5rem 1rem;
+            margin: 0 0.25rem ;
+        }
+    
+    }
+}
