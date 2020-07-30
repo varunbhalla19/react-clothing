@@ -8,6 +8,8 @@ import Shop from './Pages/Shop/Shop';
 
 import Header from './Components/Header/Header';
 
+import SignupLogin from './Pages/SignupLogin/SignupLogin';
+
 import './index.css';
 
 const App = props => (
@@ -15,6 +17,7 @@ const App = props => (
     <Header />
     <Route component={Shop} path={'/shop'} exact />
     <Route component={Homepage} path={'/'} exact />
+    <Route component={SignupLogin} path={'/sign-in'} exact />
   </div>
 );
 
