@@ -4,7 +4,7 @@ import './SignIn.scss';
 
 import FormInput from '../FormInput/FormInput'
 
-import { signIn } from '../../firebase/utils';
+import { signIn , auth } from '../../firebase/utils';
 
 import Button from '../Button/Button';
 
@@ -21,7 +21,14 @@ class SignIn extends Component {
 
     submitted = ev => {
         ev.preventDefault();
+        let {email , password} = this.state ;
         console.log(this.state.email, this.state.password);
+        auth.signInWithEmailAndPassword(email , password).then( user => {
+            console.log('signedIn' , user );
+            this.setState({
+                email : '' , password : '' 
+            })
+        } ).catch( console.log ) ;
     }
 
     render() {
@@ -33,17 +40,17 @@ class SignIn extends Component {
                         required={true}
                         onChange={this.changeInp}
                         type="email"
-                        name="email"
+                        name="email" id="si-name" label="Email"
                         value={this.state.email} />
                     <FormInput
                         required={true}
                         onChange={this.changeInp}
                         type="password"
-                        name="password"
+                        name="password" id="si-pass" label="Password"
                         value={this.state.password} />
                     <div className="button-cover">
                         <Button onClick={this.submitted} type="Submit" text="Sign In" />
-                        <Button onClick={signIn} googleButton text="Sign In With Google" />
+                        <Button onClick={signIn} type="button" googleButton text="Sign In With Google" />
                     </div>
                 </form>
             </div>

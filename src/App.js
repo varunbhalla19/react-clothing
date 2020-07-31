@@ -10,8 +10,9 @@ import Header from './Components/Header/Header';
 
 import SignupLogin from './Pages/SignupLogin/SignupLogin';
 
+import { auth, letsCreateProfile } from './firebase/utils';
+
 import './index.css';
-import { auth } from './firebase/utils';
 
 class App extends React.Component {
 
@@ -22,10 +23,24 @@ class App extends React.Component {
   unsubscribe = null;
 
   componentDidMount() {
+
     this.unsubscribe = auth.onAuthStateChanged(user => {
-      console.log('auth state changed');
+      console.log('auth state changed ', user);
+
       if (user) {
-        this.setState(_ => ({ currentUser: user }));
+        console.log(user.custom_Name);
+
+        letsCreateProfile(user, user.custom_Name).then(docRef => {
+          console.log('ref is ', docRef);
+          docRef.onSnapshot(snap => {
+            this.setState(_ => ({
+              currentUser: {
+                id: snap.id,
+                ...snap.data()
+              }
+            }), _ => console.log(this.state))
+          })
+        })
       } else {
         this.setState(_ => ({ currentUser: null }));
       }
@@ -37,7 +52,6 @@ class App extends React.Component {
   }
 
   render() {
-    // console.log('auth user in render ', auth.currentUser);
     return (
       <div className="App" >
         <Header user={this.state.currentUser} />
@@ -49,5 +63,6 @@ class App extends React.Component {
   }
 }
 
-
 export default App;
+
+

@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/firestore';
 
 const firebaseConfig = {
     apiKey: "AIzaSyBbeqrkPtBf23j8caq9lebM9A6ECDagc0w",
@@ -19,11 +20,47 @@ const provider = new firebase.auth.GoogleAuthProvider();
 
 provider.setCustomParameters({ 'prompt': 'select_account' });
 
-
 const signIn = () => {
     auth.signInWithPopup(provider)
-        .then(user => console.log(user))
+        .then(user => {
+            console.log('Signed In', user, user.user.displayName, user.user.uid);
+            // letsCreateProfile(user.user);
+        })
         .catch(er => console.log('Error while SignIn ', er, er.message));
 }
 
-export { signIn, auth }; 
+const db = firebase.firestore();
+
+const letsCreateProfile = (user, name = null) => {
+
+    console.log('inside PD func');
+    let { uid, displayName, email } = user;
+
+    if (name) { displayName = name }
+
+    let docRef = db.doc(`/Users/${uid}`) ; 
+
+    return new Promise ( res => {
+
+        docRef.get().then(docSnap => {
+            if (!docSnap.exists) {
+                docRef.set({
+                    name: displayName,
+                    email: email,
+                    createdAt: new Date()
+                }).then(_ => {
+                    console.log('Done');
+                    res(docRef) ;
+                });
+            } else {
+                console.log('Already Exists in DB');
+                res(docRef) ;
+            }
+        })
+    
+    } )
+}
+
+
+
+export { signIn, auth, letsCreateProfile }; 

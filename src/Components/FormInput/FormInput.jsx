@@ -9,13 +9,13 @@ const FormInput = props => (
             type={props.type}
             name={props.name}
             value={props.value}
-            id={props.name}
+            id={props.id}
             required={props.required}
             className="form-input" />
         <label
-            htmlFor={props.name}
+            htmlFor={props.id}
             className={`form-label ${props.value.length ? "shrink" : ''}`}
-        >{props.name}</label>
+        >{props.label}</label>
     </div>
 )
 
