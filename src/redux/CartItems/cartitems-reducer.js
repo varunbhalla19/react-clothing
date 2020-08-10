@@ -1,13 +1,11 @@
-import CartItemType from './cartitems-action-type' ;
+import CartItemType from "./cartitems-action-type";
+import filterItems from "./cartitems-util";
 
-const cartItemReducer = ( state = [] , action ) => {
-    if( action.type === CartItemType.ADD_CART_ITEM ) {
-        return [
-            ...state,
-            action.payload 
-        ]
-    }
-    return state ;
-}
+const cartItemReducer = (state = [], action) => {
+  if (action.type === CartItemType.ADD_CART_ITEM) {
+    return filterItems(state, action.payload) ;
+  }
+  return state;
+};
 
-export default cartItemReducer ;
+export default cartItemReducer;
