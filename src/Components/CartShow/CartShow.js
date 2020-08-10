@@ -4,13 +4,19 @@ import "./CartShow.scss";
 
 import Button from "../Button/Button";
 
-const CartShow = () => (
-  <div className='cart-show'  >
-    <div className="cart-show-items"></div>
-    <div className="cart-show-button">
-      <Button text="CHECKOUT" />
+import CartItem from "../CartItem/CartItem";
+
+import { connect } from "react-redux";
+
+const CartShow = ({ items }) => (
+  <div className="cart-show">
+    <div className="cart-show-items">
+      {items.map((el) => (
+        <CartItem key={el.id} {...el} />
+      ))}
     </div>
+    <Button text="CHECKOUT" />
   </div>
 );
 
-export default CartShow ;
+export default connect((state) => ({ items: state.cartItems }))(CartShow);
