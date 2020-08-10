@@ -1,5 +1,7 @@
+import UserActions from './user-action-types' ;
+
 const setCurrentUser = user => ({
-    type: 'SET_CURRENT_USER',
+    type: UserActions.SET_CURRENT_USER ,
     payload: user
 });
 
