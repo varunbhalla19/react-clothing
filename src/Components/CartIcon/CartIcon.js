@@ -6,20 +6,12 @@ import "./CartIcon.scss";
 
 import { connect } from "react-redux";
 
-import toggleCartShow from '../../redux/CartShow/cartshow-action'
+import toggleCartShow from "../../redux/CartShow/cartshow-action";
 
 const CartIcon = ({ toggle }) => (
-  <div className="cart-icon-cover" onClick={toggle} >
+  <div className="cart-icon-cover" onClick={toggle}>
     <CartSVG />
     <span className="icon-count"> 4 </span>
   </div>
 );
-
-
-
-export default connect(
-  null,
-  dispatch => ({
-    toggle : () => dispatch(toggleCartShow())
-  })
-)(CartIcon);
+export default connect(null, { toggle: toggleCartShow })(CartIcon);
