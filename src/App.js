@@ -52,7 +52,6 @@ class App extends React.Component {
         <Header />
         <Route component={Shop} path={"/shop"} exact />
         <Route component={Homepage} path={"/"} exact />
-        {/* <Route component={SignupLogin} path={"/sign-in"} exact /> */}
         <Route
           path={"/sign-in"}
           exact

@@ -10,7 +10,11 @@ import { ReactComponent as Logo } from "../../assets/shopping-bag.svg";
 
 import { connect } from "react-redux";
 
-const Header = ({ currentUser }) => (
+import CartIcon from "../CartIcon/CartIcon";
+
+import CartShow from "../CartShow/CartShow";
+
+const Header = ({ currentUser, cartShow }) => (
   <nav className="header">
     <Link className="header-logo" to="/">
       <Logo />
@@ -29,13 +33,17 @@ const Header = ({ currentUser }) => (
           <Link to="/sign-in"> SIGN IN </Link>
         )}{" "}
       </li>
-      <li className="header-option header-option-logo "></li>
+      <li className="header-option header-option-logo ">
+        <CartIcon />
+      </li>
+      {cartShow ? <CartShow /> : null}
     </ul>
   </nav>
 );
 
-const mapStateToProps = (reducer) => ({
-  currentUser: reducer.user.currentUser,
+const mapStateToProps = ({ user, cartShow }) => ({
+  currentUser: user.currentUser,
+  cartShow,
 });
 
 const newHeader = connect(mapStateToProps)(Header);

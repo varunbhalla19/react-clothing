@@ -16,10 +16,12 @@
 
     .header-options {
         display: flex;
-        
+        position: relative;
         .header-option{
             padding: 0.5rem 1rem;
             margin: 0 0.25rem ;
+            display: flex;
+            align-items: center;
         }
     
     }
