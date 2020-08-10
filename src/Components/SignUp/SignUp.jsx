@@ -6,7 +6,7 @@ import FormInput from '../FormInput/FormInput';
 
 import Button from '../Button/Button';
 
-import { auth, letsCreateProfile } from '../../firebase/utils';
+import { auth } from '../../firebase/utils';
 
 class SignUp extends Component {
 

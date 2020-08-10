@@ -33,7 +33,8 @@ const db = firebase.firestore();
 
 const letsCreateProfile = (user, name = null) => {
 
-    console.log('inside PD func');
+    console.log('inside LCP func');
+
     let { uid, displayName, email } = user;
 
     if (name) { displayName = name }

@@ -1,50 +1,45 @@
-import React from 'react';
+import React from "react";
 
-import { Route } from 'react-router-dom';
+import { Route } from "react-router-dom";
 
-import Homepage from './Pages/Homepage/Homepage';
+import Homepage from "./Pages/Homepage/Homepage";
 
-import Shop from './Pages/Shop/Shop';
+import Shop from "./Pages/Shop/Shop";
 
-import Header from './Components/Header/Header';
+import Header from "./Components/Header/Header";
 
-import SignupLogin from './Pages/SignupLogin/SignupLogin';
+import SignupLogin from "./Pages/SignupLogin/SignupLogin";
 
-import { auth, letsCreateProfile } from './firebase/utils';
+import { auth, letsCreateProfile } from "./firebase/utils";
 
-import './index.css';
+import { connect } from "react-redux";
+
+import setCurrentUser from "./redux/User/user-actions";
+
+import "./index.css";
 
 class App extends React.Component {
-
-  state = {
-    currentUser: null
-  };
-
   unsubscribe = null;
 
   componentDidMount() {
+    let { setCurrentUser } = this.props;
 
-    this.unsubscribe = auth.onAuthStateChanged(user => {
-      console.log('auth state changed ', user);
+    this.unsubscribe = auth.onAuthStateChanged((user) => {
+      console.log("auth state changed ", user);
 
       if (user) {
-        console.log(user.custom_Name);
-
-        letsCreateProfile(user, user.custom_Name).then(docRef => {
-          console.log('ref is ', docRef);
-          docRef.onSnapshot(snap => {
-            this.setState(_ => ({
-              currentUser: {
-                id: snap.id,
-                ...snap.data()
-              }
-            }), _ => console.log(this.state))
-          })
-        })
+        letsCreateProfile(user, user.custom_Name).then((docRef) => {
+          docRef.onSnapshot((snap) => {
+            setCurrentUser({
+              id: snap.id,
+              ...snap.data(),
+            });
+          });
+        });
       } else {
-        this.setState(_ => ({ currentUser: null }));
+        setCurrentUser(user);
       }
-    })
+    });
   }
 
   componentWillUnmount() {
@@ -53,16 +48,20 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App" >
-        <Header user={this.state.currentUser} />
-        <Route component={Shop} path={'/shop'} exact />
-        <Route component={Homepage} path={'/'} exact />
-        <Route component={SignupLogin} path={'/sign-in'} exact />
+      <div className="App">
+        <Header />
+        <Route component={Shop} path={"/shop"} exact />
+        <Route component={Homepage} path={"/"} exact />
+        <Route component={SignupLogin} path={"/sign-in"} exact />
       </div>
     );
   }
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => ({
+  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+});
 
+const newApp = connect(null, mapDispatchToProps)(App);
 
+export default newApp;

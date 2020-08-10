@@ -4,7 +4,7 @@ import './SignIn.scss';
 
 import FormInput from '../FormInput/FormInput'
 
-import { signIn , auth } from '../../firebase/utils';
+import { signIn, auth } from '../../firebase/utils';
 
 import Button from '../Button/Button';
 
@@ -14,21 +14,25 @@ class SignIn extends Component {
 
     changeInp = ev => {
 
-        let type = ev.target.type, value = ev.target.value;
+        let { type, value } = ev.target;
 
         this.setState(_ => ({ [type]: value }));
     }
 
+    resetForm = () => {
+        this.setState(_ => ({
+            email: '', password: ''
+        }), _ => console.log(' Sign-in Form resetted')) ;
+    }
+
     submitted = ev => {
         ev.preventDefault();
-        let {email , password} = this.state ;
+        let { email, password } = this.state;
         console.log(this.state.email, this.state.password);
-        auth.signInWithEmailAndPassword(email , password).then( user => {
-            console.log('signedIn' , user );
-            this.setState({
-                email : '' , password : '' 
-            })
-        } ).catch( console.log ) ;
+        auth.signInWithEmailAndPassword(email, password).then(user => {
+            // console.log('signedIn', user);
+
+        }).catch(console.log);
     }
 
     render() {
@@ -60,5 +64,3 @@ class SignIn extends Component {
 
 
 export default SignIn;
-
-
