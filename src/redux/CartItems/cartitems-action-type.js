@@ -1,5 +1,8 @@
 const CartItemType = {
-    ADD_CART_ITEM : 'ADD_CART_ITEM'
+  ADD_CART_ITEM: "ADD_CART_ITEM",
+  DELETE_CART_ITEM: "DELETE_CART_ITEM",
+  INC_CART_ITEM: "INC_CART_ITEM",
+  DEC_CART_ITEM: "DEC_CART_ITEM",
 };
 
-export default CartItemType ;
+export default CartItemType;

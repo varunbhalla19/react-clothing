@@ -1,0 +1,21 @@
+.checkout-page {
+  max-width: 60rem;
+  margin: auto;
+
+  .checkout {
+    margin: 3rem;
+
+    .cart-item {
+      margin: 1rem 0;
+
+      img {
+        max-height: 8rem;
+        max-width: 8rem;
+      }
+
+      .cart-item-detail {
+        flex-direction: row;
+      }
+    }
+  }
+}

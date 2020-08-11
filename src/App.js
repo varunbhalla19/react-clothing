@@ -10,6 +10,8 @@ import Header from "./Components/Header/Header";
 
 import SignupLogin from "./Pages/SignupLogin/SignupLogin";
 
+import Checkout from "./Pages/Checkout/Checkout";
+
 import { auth, letsCreateProfile } from "./firebase/utils";
 
 import { connect } from "react-redux";
@@ -52,6 +54,7 @@ class App extends React.Component {
         <Header />
         <Route component={Shop} path={"/shop"} exact />
         <Route component={Homepage} path={"/"} exact />
+        <Route component={Checkout} path={"/checkout"} exact />
         <Route
           path={"/sign-in"}
           exact
