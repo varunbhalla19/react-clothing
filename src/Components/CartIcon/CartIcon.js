@@ -8,10 +8,20 @@ import { connect } from "react-redux";
 
 import toggleCartShow from "../../redux/CartShow/cartshow-action";
 
-const CartIcon = ({ toggle }) => (
+import { getItemsLength } from "../../redux/CartItems/cartitems-selector";
+
+const CartIcon = ({ toggle, itemLength }) => (
   <div className="cart-icon-cover" onClick={toggle}>
     <CartSVG />
-    <span className="icon-count"> 4 </span>
+    <span className="icon-count">{itemLength}</span>
   </div>
 );
-export default connect(null, { toggle: toggleCartShow })(CartIcon);
+
+export default connect(
+  (state) => ({
+    itemLength: getItemsLength(state),
+  }),
+  {
+    toggle: toggleCartShow,
+  }
+)(CartIcon);

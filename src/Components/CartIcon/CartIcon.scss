@@ -18,14 +18,15 @@
     font-size: 12px;
     align-items: center;
     justify-content: center;
-    background-color: indianred;
+    background-color: white;
     border-radius: 5rem;
     z-index: 2;
     position: absolute;
     right: 0;
     bottom: 0;
     transform: translate(30%, 30%);
-    color: whitesmoke;
+    color: black;
     font-weight: bold;
+    border: 2px solid black;
   }
 }
