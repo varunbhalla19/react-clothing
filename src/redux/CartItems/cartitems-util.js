@@ -13,16 +13,24 @@ const filterItems = (cartArray, cartItem) => {
   return cartArray.concat({ ...cartItem, quantity: 1 });
 };
 
-const removeFromCart = (cartArray, cartItemId) => {
-  return cartArray.filter((el) => el.id !== cartItemId);
-};
+// const filterr = (cartArray, cartItem) =>
+//   cartArray.length
+//     ? cartArray.reduce(
+//         (ar, el) =>
+//           el.id === cartItem.id
+//             ? ar.concat({ ...el, quantity: el.quantity + 1 })
+//             : ar.concat(el),
+//         []
+//       )
+//     : [{ ...cartItem, quantity: 1 }];
 
-const incItemCart = (cartArray, cartItemId) => {
-  console.log("Inc Item request ", cartItemId);
-  return cartArray.map((el) => {
-    return el.id === cartItemId ? { ...el, quantity: el.quantity + 1 } : el;
-  });
-};
+const removeFromCart = (cartArray, cartItemId) =>
+  cartArray.filter((el) => el.id !== cartItemId);
+
+const incItemCart = (cartArray, cartItemId) =>
+  cartArray.map((el) =>
+    el.id === cartItemId ? { ...el, quantity: el.quantity + 1 } : el
+  );
 
 const decItemCart = (cartArray, cartItemId) =>
   cartArray.reduce(
