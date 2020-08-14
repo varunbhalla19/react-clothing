@@ -3,14 +3,12 @@ import { combineReducers } from "redux";
 import userReducer from "./User/user-reducer";
 import cartShowReducer from "./CartShow/cartshow-reducer";
 import cartItemReducer from "./CartItems/cartitems-reducer";
-
-// import { persistedStore } from "./store";
+import menuReducer from "./Menu/menu-reducer";
+import shopDataReducer from "./Shop/shopdata-reducer";
 
 import { persistReducer } from "redux-persist";
 
 import storage from "redux-persist/lib/storage";
-
-// That the only thing we want to white list I E the only reducer that we actually want to persist is the cart.
 
 const persistConfig = {
   key: "root",
@@ -22,6 +20,8 @@ const rootReducer = combineReducers({
   user: userReducer,
   cartShow: cartShowReducer,
   cartItems: cartItemReducer,
+  menu: menuReducer,
+  shopData : shopDataReducer
 });
 
 const peristRootReducer = persistReducer(persistConfig, rootReducer);

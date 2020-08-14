@@ -1,26 +1,24 @@
-import React, { Component } from 'react';
+import React from "react";
 
-import './Shop.scss';
+import "./Shop.scss";
 
-import ShopCollection from '../../Components/ShopCollection/ShopCollection';
+import ShopCollection from "../../Components/ShopCollection/ShopCollection";
 
-import ShopData from '../../CollectionData';
+import { connect } from "react-redux";
 
-class Shop extends Component {
-    state = {
-        collection: ShopData
-    }
+const Shop = ({ shopData }) => (
+  <div className="shop">
+    <h1> The Shop </h1>
+    {shopData.map((el) => (
+      <ShopCollection
+        key={el.id}
+        items={el.items.slice(0, 4)}
+        title={el.title}
+      />
+    ))}
+  </div>
+);
 
-    render() {
-        return (
-            <div className="shop">
-                <h1> The Shop </h1>
-                {this.state.collection.map(el => (
-                    <ShopCollection key={el.id} items={el.items.slice(0,4)} title={el.title} />
-                ))}
-            </div>
-        )
-    }
-}
-
-export default Shop 
+export default connect((state) => ({
+  shopData: state.shopData,
+}))(Shop);
