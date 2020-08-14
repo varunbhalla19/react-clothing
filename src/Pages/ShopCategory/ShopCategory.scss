@@ -1,0 +1,10 @@
+.shop-category-page {
+  h2 {
+      text-align: center;
+  }
+  .shop-collection {
+    .shop-collection-preview {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+}

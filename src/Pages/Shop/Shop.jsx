@@ -6,9 +6,20 @@ import ShopCollection from "../../Components/ShopCollection/ShopCollection";
 
 import { connect } from "react-redux";
 
-const Shop = ({ shopData }) => (
+import { Route } from "react-router-dom";
+
+import ShopCategory from "../../Pages/ShopCategory/ShopCategory.jsx";
+
+const Shop = ({ match }) => (
   <div className="shop">
     <h1> The Shop </h1>
+    <Route path={`${match.path}`} exact component={connectedShopMain} />
+    <Route path={`${match.path}/:pageId`} component={ShopCategory} />
+  </div>
+);
+
+const ShopMain = ({ shopData }) => (
+  <>
     {shopData.map((el) => (
       <ShopCollection
         key={el.id}
@@ -16,9 +27,11 @@ const Shop = ({ shopData }) => (
         title={el.title}
       />
     ))}
-  </div>
+  </>
 );
 
-export default connect((state) => ({
+let connectedShopMain = connect((state) => ({
   shopData: state.shopData,
-}))(Shop);
+}))(ShopMain);
+
+export default Shop;
