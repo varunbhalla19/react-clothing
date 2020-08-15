@@ -10,6 +10,8 @@ import { Route } from "react-router-dom";
 
 import ShopCategory from "../../Pages/ShopCategory/ShopCategory.jsx";
 
+import { getShopArray } from "../../redux/Shop/shoppage-selector";
+
 const Shop = ({ match }) => (
   <div className="shop">
     <h1> The Shop </h1>
@@ -31,7 +33,7 @@ const ShopMain = ({ shopData }) => (
 );
 
 let connectedShopMain = connect((state) => ({
-  shopData: state.shopData,
+  shopData: getShopArray(state),
 }))(ShopMain);
 
 export default Shop;
