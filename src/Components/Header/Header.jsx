@@ -1,44 +1,45 @@
 import React from "react";
-
-import "./Header.scss";
-
 import { Link } from "react-router-dom";
-
-import { auth } from "../../firebase/utils";
-
-import { ReactComponent as Logo } from "../../assets/shopping-bag.svg";
-
 import { connect } from "react-redux";
-
+import { auth } from "../../firebase/utils";
 import CartIcon from "../CartIcon/CartIcon";
-
 import CartShow from "../CartShow/CartShow";
+// import { ReactComponent as Logo } from "../../assets/shopping-bag.svg";
+// import "./Header.scss";
+
+import {
+  HeaderStyled,
+  LogoStyled,
+  LinkStyled,
+  OptionsStyled,
+  OptionStyled,
+} from "./Header-style";
 
 const Header = ({ currentUser, cartShow }) => (
-  <nav className="header">
-    <Link className="header-logo" to="/">
-      <Logo />
-    </Link>
-    <ul className="header-options">
-      <li className="header-option">
+  <HeaderStyled>
+    <LinkStyled to="/">
+      <LogoStyled />
+    </LinkStyled>
+    <OptionsStyled>
+      <OptionStyled>
         <Link to="/shop"> SHOP </Link>
-      </li>
-      <li className="header-option">
+      </OptionStyled>
+      <OptionStyled>
         <Link to="/contact"> CONTACT </Link>
-      </li>
-      <li className="header-option">
+      </OptionStyled>
+      <OptionStyled>
         {currentUser ? (
           <p onClick={() => auth.signOut()}>Sign Out</p>
         ) : (
           <Link to="/sign-in"> SIGN IN </Link>
-        )}{" "}
-      </li>
-      <li className="header-option header-option-logo ">
+        )}
+      </OptionStyled>
+      <OptionStyled>
         <CartIcon />
-      </li>
+      </OptionStyled>
       {cartShow ? <CartShow /> : null}
-    </ul>
-  </nav>
+    </OptionsStyled>
+  </HeaderStyled>
 );
 
 const mapStateToProps = ({ user, cartShow }) => ({
