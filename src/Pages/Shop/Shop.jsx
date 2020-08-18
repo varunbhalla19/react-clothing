@@ -1,39 +1,44 @@
 import React from "react";
-
 import "./Shop.scss";
-
-import ShopCollection from "../../Components/ShopCollection/ShopCollection";
-
 import { connect } from "react-redux";
-
 import { Route } from "react-router-dom";
-
 import ShopCategory from "../../Pages/ShopCategory/ShopCategory.jsx";
+import { db } from "../../firebase/utils";
+import { shopActionCreator } from "../../redux/Shop/shopdata-reducer";
 
-import { getShopArray } from "../../redux/Shop/shoppage-selector";
+import ShopMain from '../../Components/ShopMain/ShopMain' ;
 
-const Shop = ({ match }) => (
-  <div className="shop">
-    <h1> The Shop </h1>
-    <Route path={`${match.path}`} exact component={connectedShopMain} />
-    <Route path={`${match.path}/:pageId`} component={ShopCategory} />
-  </div>
-);
+class Shop extends React.Component {
+  componentDidMount() {
+    let { updateShopState } = this.props;
+    db.collection("ShopData").onSnapshot((snap) => {
+      console.log(snap, snap.empty, snap.size);
+      let newShopData = snap.docs.reduce((ac, el) => {
+        let data = el.data();
+        data.id = el.id ;
+        return {
+          ...ac,
+          [data.routeName]: data,
+        };
+      }, {});
+      updateShopState(newShopData);
+    });
+  }
 
-const ShopMain = ({ shopData }) => (
-  <>
-    {shopData.map((el) => (
-      <ShopCollection
-        key={el.id}
-        items={el.items.slice(0, 4)}
-        title={el.title}
-      />
-    ))}
-  </>
-);
+  render() {
+    let { match } = this.props;
+    console.log("shp page rendering");
+    return (
+      <div className="shop">
+        <h1> The Shop </h1>
+        <Route path={`${match.path}`} exact component={ShopMain} />
+        <Route path={`${match.path}/:pageId`} component={ShopCategory} />
+      </div>
+    );
+  }
+}
 
-let connectedShopMain = connect((state) => ({
-  shopData: getShopArray(state),
-}))(ShopMain);
 
-export default Shop;
+export default connect(null, (dispatch) => ({
+  updateShopState: (newShopData) => dispatch(shopActionCreator(newShopData)),
+}))(Shop);

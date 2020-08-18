@@ -11,11 +11,11 @@ const getPageId = (state, props) => props.match.params.pageId;
 
 const categorySelector = createSelector(
   [getShopData, getPageId],
-  (data, pageId) => data[pageId]
+  (data, pageId) => data[pageId]         // undefined if []
 );
 
 const getShopArray = createSelector(
-  [getShopData] , data => Object.values(data) 
+  [getShopData] , data => Object.values(data)     // []
 )
 
 export {getShopArray} ;

@@ -246,6 +246,26 @@ const initState = {
   },
 };
 
-const shopDataReducer = () => initState;
+const shopActionTypes = {
+  "UPDATE_SHOP_DATA" : "UPDATE_SHOP_DATA"
+}
+
+const shopActionCreator = (shopData) => ({
+  type : shopActionTypes.UPDATE_SHOP_DATA,
+  payload : shopData
+})
+
+const shopDataReducer = (currentState = [] , action) => {
+  switch (action.type) {
+    case shopActionTypes.UPDATE_SHOP_DATA :
+        return {
+          ...action.payload,
+        }
+    default:
+      return currentState;
+  }
+};
 
 export default shopDataReducer;
+
+export { shopActionCreator } ;
