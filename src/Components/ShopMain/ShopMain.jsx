@@ -2,7 +2,7 @@ import React from "react";
 
 import { connect } from "react-redux";
 
-import { getShopArray } from "../../redux/Shop/shoppage-selector";
+import { getShopArray, isLoading } from "../../redux/Shop/shoppage-selector";
 
 import ShopCollection from "../../Components/ShopCollection/ShopCollection";
 
@@ -22,7 +22,7 @@ const NewShopMain = ({ shopData }) => (
 
 const LoadShopMain = Loading(NewShopMain);
 
-export default connect((state) => {
-  let shopData = getShopArray(state);
-  return { shopData: shopData, loaded: shopData.length };
-})(LoadShopMain);
+export default connect((state) => ({
+  shopData: getShopArray(state),
+  isloading: isLoading(state),
+}))(LoadShopMain);

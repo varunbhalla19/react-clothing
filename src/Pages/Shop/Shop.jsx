@@ -3,26 +3,17 @@ import "./Shop.scss";
 import { connect } from "react-redux";
 import { Route } from "react-router-dom";
 import ShopCategory from "../../Pages/ShopCategory/ShopCategory.jsx";
-import { db } from "../../firebase/utils";
-import { shopActionCreator } from "../../redux/Shop/shopdata-reducer";
+// import { db } from "../../firebase/utils";
+import { getShopDataAsync } from "../../redux/Shop/shopdata-reducer";
 
 import ShopMain from '../../Components/ShopMain/ShopMain' ;
 
 class Shop extends React.Component {
+  
   componentDidMount() {
-    let { updateShopState } = this.props;
-    db.collection("ShopData").onSnapshot((snap) => {
-      console.log(snap, snap.empty, snap.size);
-      let newShopData = snap.docs.reduce((ac, el) => {
-        let data = el.data();
-        data.id = el.id ;
-        return {
-          ...ac,
-          [data.routeName]: data,
-        };
-      }, {});
-      updateShopState(newShopData);
-    });
+    let { getShopData } = this.props;
+    
+    getShopData() 
   }
 
   render() {
@@ -40,5 +31,7 @@ class Shop extends React.Component {
 
 
 export default connect(null, (dispatch) => ({
-  updateShopState: (newShopData) => dispatch(shopActionCreator(newShopData)),
+  getShopData : () => dispatch(getShopDataAsync())
 }))(Shop);
+
+// updateShopState: (newShopData) => dispatch(shopActionCreator(newShopData)),

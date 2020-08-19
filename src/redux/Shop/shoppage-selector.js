@@ -1,23 +1,25 @@
 import { createSelector } from "reselect";
 
-const getShopData = (state) => state.shopData;
+const shopData = (state) => state.shopData;        //  {...}
+
+const getShopData = createSelector([shopData], (data) => data.data);       //  null or {...}
+
+const isLoading = createSelector([getShopData], (data) => !!data);    //   false or true 
 
 const getPageId = (state, props) => props.match.params.pageId;
 
-// const categorySelector = createSelector(
-//   [getShopData, getPageId],
-//   (data, pageId) => data.find((el) => el.routeName === pageId)
-// );
-
 const categorySelector = createSelector(
   [getShopData, getPageId],
-  (data, pageId) => data[pageId]         // undefined if []
+  (data, pageId) => {
+    console.log("data and pageId ==> ", data, pageId); 
+    return data && data[pageId]  ; 
+  } 
 );
 
-const getShopArray = createSelector(
-  [getShopData] , data => Object.values(data)     // []
-)
+const getShopArray = createSelector([getShopData], (data) =>
+  data && Object.values(data)
+);
 
-export {getShopArray} ;
+export { getShopArray, isLoading };
 
 export default categorySelector;

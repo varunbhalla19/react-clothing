@@ -6,25 +6,21 @@ import { connect } from "react-redux";
 
 import "./ShopCategory.scss";
 
-import selectCategory from "../../redux/Shop/shoppage-selector";
+import selectCategory, { isLoading } from "../../redux/Shop/shoppage-selector";
 
 import Loading from "../../Components/Loading/Loading";
 
 const ShopCategory = ({ categoryObject }) => (
   <div className="shop-category-page">
-    <ShopCollection 
-      title={categoryObject.title} 
-      items={categoryObject.items} 
-    />
+    <ShopCollection title={categoryObject.title} items={categoryObject.items} />
   </div>
 );
 
 const LoadShop = Loading(ShopCategory);
 
 export default connect((state, props) => {
-  let categoryObject = selectCategory(state, props);
   return {
-    categoryObject: categoryObject,
-    loaded: categoryObject,
+    categoryObject: selectCategory(state, props),
+    isloading: isLoading(state),
   };
 })(LoadShop);
