@@ -1,10 +1,10 @@
 import { createSelector } from "reselect";
 
-const shopData = (state) => state.shopData;        //  {...}
+const shopData = (state) => state.shopData;
 
-const getShopData = createSelector([shopData], (data) => data.data);       //  null or {...}
+const getShopData = createSelector([shopData], (data) => data.data);       
 
-const isLoading = createSelector([getShopData], (data) => !!data);    //   false or true 
+const isLoading = createSelector([getShopData], (data) => !!data);    
 
 const getPageId = (state, props) => props.match.params.pageId;
 

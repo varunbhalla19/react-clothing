@@ -1,14 +1,14 @@
 import React from "react";
 
-import { connect } from "react-redux";
-
-import { getShopArray, isLoading } from "../../redux/Shop/shoppage-selector";
-
 import ShopCollection from "../../Components/ShopCollection/ShopCollection";
 
-import Loading from "../Loading/Loading";
 
-const NewShopMain = ({ shopData }) => (
+// import { connect } from "react-redux";
+// import { getShopArray, isLoading } from "../../redux/Shop/shoppage-selector";
+// import Loading from "../Loading/Loading";
+
+
+const ShopMain = ({ shopData }) => (
   <>
     {Object.values(shopData).map((el) => (
       <ShopCollection
@@ -20,9 +20,11 @@ const NewShopMain = ({ shopData }) => (
   </>
 );
 
-const LoadShopMain = Loading(NewShopMain);
+export default ShopMain
 
-export default connect((state) => ({
-  shopData: getShopArray(state),
-  isloading: isLoading(state),
-}))(LoadShopMain);
+
+// const LoadShopMain = Loading(NewShopMain);
+// export default connect((state) => ({
+//   shopData: getShopArray(state),
+//   isloading: isLoading(state),
+// }))(LoadShopMain);
