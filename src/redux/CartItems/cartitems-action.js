@@ -20,6 +20,10 @@ const DecreaseItem = itemId => ({
   payload : itemId
 })
 
-export {CartItemDelete ,IncreaseItem , DecreaseItem } ;
+const ClearCart = () => ({
+  type : CartItemType.CLEAR_CART
+})
+
+export {CartItemDelete ,IncreaseItem , DecreaseItem, ClearCart } ;
 
 export default CartItemAction;

@@ -3,6 +3,7 @@ const CartItemType = {
   DELETE_CART_ITEM: "DELETE_CART_ITEM",
   INC_CART_ITEM: "INC_CART_ITEM",
   DEC_CART_ITEM: "DEC_CART_ITEM",
+  CLEAR_CART: "CLEAR_CART",
 };
 
 export default CartItemType;

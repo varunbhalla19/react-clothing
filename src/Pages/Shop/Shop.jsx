@@ -2,12 +2,10 @@ import React from "react";
 import "./Shop.scss";
 import { connect } from "react-redux";
 import { Route } from "react-router-dom";
-// import ShopCategory from "../../Pages/ShopCategory/ShopCategory.jsx";
 
 import ShopCategoryContainer from '../../Pages/ShopCategory/ShopCategory.Container'
 
-// import { db } from "../../firebase/utils";
-import { getShopDataAsync } from "../../redux/Shop/shopdata-reducer";
+import { shopActionStart } from "../../redux/Shop/shopdata-reducer";
 
 import ShopMainContainer from '../../Components/ShopMain/ShopMain.Container' ;
 
@@ -34,7 +32,6 @@ class Shop extends React.Component {
 
 
 export default connect(null, (dispatch) => ({
-  getShopData : () => dispatch(getShopDataAsync())
+  getShopData : () => dispatch(shopActionStart())
 }))(Shop);
 
-// updateShopState: (newShopData) => dispatch(shopActionCreator(newShopData)),

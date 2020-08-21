@@ -17,6 +17,7 @@ const HeaderStyled = styled.div`
 const OptionStyled = styled.li`
   padding: 0.5rem 1rem;
   margin: 0 0.25rem;
+  cursor : pointer;
   ${flexStyle}
 `;
 

@@ -16,8 +16,6 @@ const CartIcon = ({ toggle, itemLength, items }) => (
     ) : (
       <EmptyCartSvg />
     )}
-
-    {console.log("rerendering iconjs")}
   </div>
 );
 

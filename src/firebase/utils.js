@@ -20,26 +20,18 @@ const provider = new firebase.auth.GoogleAuthProvider();
 
 provider.setCustomParameters({ prompt: "select_account" });
 
-const signIn = () => {
-  auth
-    .signInWithPopup(provider)
-    .then((user) => {
-      console.log("Signed In", user, user.user.displayName, user.user.uid);
-      // letsCreateProfile(user.user);
-    })
-    .catch((er) => console.log("Error while SignIn ", er, er.message));
-};
-
 const db = firebase.firestore();
 
-const letsCreateProfile = (user, name = null) => {
+const letsCreateProfile = (user) => {
   console.log("inside LCP func");
 
   let { uid, displayName, email } = user;
 
-  if (name) {
-    displayName = name;
+  if (!displayName) {
+    displayName = user.custom_Name ;
   }
+
+  console.log(uid,displayName,email) ;
 
   let docRef = db.doc(`/Users/${uid}`);
 
@@ -64,8 +56,6 @@ const letsCreateProfile = (user, name = null) => {
   });
 };
 
-// db.collection("ShopData").get().then(function(querySnapshot) {
 
-// });
 
-export { signIn, auth, letsCreateProfile , db };
+export { auth, letsCreateProfile , db , provider };

@@ -7,6 +7,8 @@ import CartShow from "../CartShow/CartShow";
 // import { ReactComponent as Logo } from "../../assets/shopping-bag.svg";
 // import "./Header.scss";
 
+import { SignoutStartAction } from "../../redux/User/user-actions";
+
 import {
   HeaderStyled,
   LogoStyled,
@@ -15,7 +17,7 @@ import {
   OptionStyled,
 } from "./Header-style";
 
-const Header = ({ currentUser, cartShow }) => (
+const Header = ({ currentUser, cartShow, signOut }) => (
   <HeaderStyled>
     <LinkStyled to="/">
       <LogoStyled />
@@ -29,7 +31,7 @@ const Header = ({ currentUser, cartShow }) => (
       </OptionStyled>
       <OptionStyled>
         {currentUser ? (
-          <p onClick={() => auth.signOut()}>Sign Out</p>
+          <p onClick={signOut}>Sign Out</p>
         ) : (
           <Link to="/sign-in"> SIGN IN </Link>
         )}
@@ -47,6 +49,8 @@ const mapStateToProps = ({ user, cartShow }) => ({
   cartShow,
 });
 
-const newHeader = connect(mapStateToProps)(Header);
+const newHeader = connect(mapStateToProps, (dispatch) => ({
+  signOut: () => dispatch(SignoutStartAction()),
+}))(Header);
 
 export default newHeader;

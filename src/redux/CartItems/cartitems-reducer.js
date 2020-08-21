@@ -18,6 +18,9 @@ const cartItemReducer = (state = initState, action) => {
     case CartItemType.DEC_CART_ITEM:
       return decItemCart(state, action.payload);
 
+    case CartItemType.CLEAR_CART:
+      return [] ;
+
     default:
       return state;
   }
