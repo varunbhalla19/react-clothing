@@ -28,10 +28,10 @@ const SignoutStartAction = () => ({ type: UserActions.SIGNOUT_START });
 
 const SignoutSucessAction = () => ({ type: UserActions.SIGNOUT_SUCCESS });
 
-const SignoutErAction = (er) => ({
-  type: UserActions.SIGNOUT_ERR,
-  payload: er,
-});
+// const SignoutErAction = (er) => ({
+//   type: UserActions.SIGNOUT_ERR,
+//   payload: er,
+// });
 
 const SignupActionStart = (name, email, password) => ({
   type: UserActions.SIGNUP_START,

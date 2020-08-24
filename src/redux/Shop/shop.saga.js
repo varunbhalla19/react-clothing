@@ -4,7 +4,7 @@ import {
   shopActionSucess,
 } from "./shopdata-reducer";
 
-import { takeEvery, put, call, take, takeLatest } from "redux-saga/effects";
+import { put, call, take, } from "redux-saga/effects";
 
 import { db } from "../../firebase/utils";
 

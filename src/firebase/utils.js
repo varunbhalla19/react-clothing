@@ -38,6 +38,7 @@ const letsCreateProfile = (user) => {
   return new Promise((res) => {
     docRef.get().then((docSnap) => {
       if (!docSnap.exists) {
+        console.log('doesnt exist yet');
         docRef
           .set({
             name: displayName,

@@ -1,16 +1,16 @@
 import UserActions from "./user-action-types";
 
-import { take, takeLatest, takeEvery, put, call } from "redux-saga/effects";
+import { takeLatest, put, call } from "redux-saga/effects";
 
 import {
   AuthSucessAction,
-  SignoutStartAction,
+  // SignoutStartAction,
   SignoutSucessAction,
 } from "./user-actions";
 
 import { ClearCart } from "../CartItems/cartitems-action";
 
-import { auth, letsCreateProfile, db, provider } from "../../firebase/utils";
+import { auth, letsCreateProfile, provider } from "../../firebase/utils";
 
 function* letsAuth(userAuthObject) {
   const userRef = yield call(letsCreateProfile, userAuthObject);
@@ -26,7 +26,7 @@ function* GoogleAuth() {
 
 function* CustomAuth(action) {
   let { email, password } = action.payload;
-  const { user } = yield auth.signInWithEmailAndPassword(email, password);
+   yield auth.signInWithEmailAndPassword(email, password);
   // yield letsAuth(user);
 }
 
@@ -46,7 +46,7 @@ function* CurrentUserSaga() {
   yield takeLatest(UserActions.SET_CURRENT_USER, setUser);
 }
 
-function* ClearUser() {}
+// function* ClearUser() {}
 
 function* Signout() {
   yield auth.signOut();
@@ -58,15 +58,21 @@ function* SignoutStartSaga() {
   yield takeLatest(UserActions.SIGNOUT_START, Signout);
 }
 
-function* Signup(action){
-  let {name, email, password} = action.payload ;
-  yield console.log('name,email and password are ', name,email,password );
-  const userAuth = yield auth.createUserWithEmailAndPassword(email , password);
-  userAuth.user.custom_Name = name ;
+function* Signup(action) {
+  let { name, email, password } = action.payload;
+  yield console.log("name,email and password are ", name, email, password);
+  const userAuth = yield auth.createUserWithEmailAndPassword(email, password);
+  userAuth.user.custom_Name = name;
 }
 
-function* SignupSaga(){
-  yield takeLatest( UserActions.SIGNUP_START, Signup );
+function* SignupSaga() {
+  yield takeLatest(UserActions.SIGNUP_START, Signup);
 }
 
-export { GoogleAuthSaga, CustomAuthSaga, CurrentUserSaga, SignoutStartSaga, SignupSaga };
+export {
+  GoogleAuthSaga,
+  CustomAuthSaga,
+  CurrentUserSaga,
+  SignoutStartSaga,
+  SignupSaga,
+};

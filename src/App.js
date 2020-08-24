@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Redirect } from "react-router-dom";
 
 import Homepage from "./Pages/Homepage/Homepage";
@@ -13,50 +13,38 @@ import { auth } from "./firebase/utils";
 
 import "./index.css";
 
-class App extends React.Component {
-  unsubscribe = null;
-
-  componentDidMount() {
-
-    auth.onAuthStateChanged( user => {
-      if(user){
-        console.log('auth state changed object', user , user.custom_Name )
-
-        this.props.setCurrentUser(user) ;
+const App = ({ currentUser, setCurrentUser }) => {
+  useEffect(() =>
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        // console.log("auth state changed object", user, user.custom_Name);
+        console.log("auth state changed object");
+        setCurrentUser(user);
       } else {
-        console.log('auth state changed ', user)
+        console.log("auth state changed ", user);
       }
-    } ) ;
+    }),
+    [setCurrentUser]
+  );
 
+  return (
+    <div className="App">
+      <Header />
+      <Route component={Shop} path={"/shop"} />
+      <Route component={Homepage} path={"/"} exact />
+      <Route component={Checkout} path={"/checkout"} exact />
+      <Route
+        path={"/sign-in"}
+        exact
+        render={() => (currentUser ? <Redirect to="/" /> : <SignupLogin />)}
+      />
+    </div>
+  );
+};
 
-  }
-
-  componentWillUnmount() {}
-
-  render() {
-    return (
-      <div className="App">
-        <Header />
-        <Route component={Shop} path={"/shop"} />
-        <Route component={Homepage} path={"/"} exact />
-        <Route component={Checkout} path={"/checkout"} exact />
-        <Route
-          path={"/sign-in"}
-          exact
-          render={() =>
-            this.props.currentUser ? <Redirect to="/" /> : <SignupLogin />
-          }
-        />
-      </div>
-    );
-  }
-}
-
-const newApp = connect(
+export default connect(
   (state) => ({ currentUser: state.user.currentUser }),
   (dispatch) => ({
-    setCurrentUser: user => dispatch(setCurrentUser(user)),
+    setCurrentUser: (user) => dispatch(setCurrentUser(user)),
   })
 )(App);
-
-export default newApp;
