@@ -43,5 +43,17 @@ const decItemCart = (cartArray, cartItemId) =>
     []
   );
 
+const getCartItemsCount = (cartItems) =>
+  cartItems.reduce((ac, el) => ac + el.quantity, 0);
+
+const getCartPrice = (items) =>
+  items.reduce((ac, el) => ac + el.price * el.quantity, 0);
+
 export default filterItems;
-export { removeFromCart, incItemCart, decItemCart };
+export {
+  removeFromCart,
+  getCartPrice,
+  incItemCart,
+  decItemCart,
+  getCartItemsCount,
+};

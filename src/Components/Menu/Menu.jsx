@@ -1,20 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import Menuitem from "../MenuItem/Menuitem";
 
 import "./Menu.scss";
 
-import { connect } from "react-redux";
+import MenuContext from "../../Context/Menu/MenuContext";
 
-const Menu = ({ menu }) => (
-  <div className="menu">
-    {menu.map(({ id, ...otherProps }) => (
-      <Menuitem key={id} {...otherProps} />
-    ))}
-  </div>
-);
+// import { connect } from "react-redux";
 
+const Menu = () => {
+  const menu = useContext(MenuContext);   // That's it
+  return (
+    <div className="menu">
+      {menu.map(({ id, ...otherProps }) => (
+        <Menuitem key={id} {...otherProps} />
+      ))}
+    </div>
+  );
+};
 
-export default connect((state) => ({
-  menu: state.menu,
-}))(Menu);
+export default Menu;
